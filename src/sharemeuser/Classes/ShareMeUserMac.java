@@ -20,6 +20,7 @@ public class ShareMeUserMac implements ShareMeUserInterface
     
     public ShareMeUserMac()
     {
+        //Tacos are awesome.
         this.SetSettingsFileWithPath(UserIdFilePath);
         this.SetUserIdFromSettings();
     }
