@@ -20,7 +20,6 @@ public class ShareMeUserMac implements ShareMeUserInterface
     
     public ShareMeUserMac()
     {
-        //Tacos are awesome.
         this.SetSettingsFileWithPath(UserIdFilePath);
         this.SetUserIdFromSettings();
     }
@@ -133,7 +132,7 @@ public class ShareMeUserMac implements ShareMeUserInterface
     @Override
     public void SendUserIdToServer() 
     {
-        File target = new File("\\maanas\\maanas\\IMC\\ACS\\ShareMe\\UserId.txt");
+        File target = new File("/Volumes/maanas/IMC/ACS/ShareMe/UserId.txt");
         try 
         {
             Files.copy(this.shareMeSettings.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
