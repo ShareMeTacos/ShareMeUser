@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
@@ -19,6 +17,7 @@ public class ShareMeUserLinux implements ShareMeUserInterface
     private boolean isCorrect;
     private String userId;
     private File shareMeSettings;
+    private String serverPath;
     
     public ShareMeUserLinux()
     {
@@ -26,6 +25,41 @@ public class ShareMeUserLinux implements ShareMeUserInterface
         String path = "/home/"+user+settingsFileName;
         this.SetSettingsFileWithPath(path);
         this.SetUserIdFromSettings();
+        this.SetServerPath();
+    }
+    
+    public void SetServerPath()
+    {
+        if(!"".equals(serverPath))
+        {
+            Object[] options = 
+            {
+                "Yes",
+                "No",
+            };
+
+            int n = JOptionPane.showOptionDialog(null,
+                "Is "+serverPath+" the correct server path?",
+                "Correct server path?",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+            if(n == 0)
+            {
+                isCorrect = true;
+            }
+            else
+            {
+                serverPath = JOptionPane.showInputDialog("What is the path to the ShareMe folder on the maanas server?");
+            }
+        }
+        else
+        {
+            serverPath = JOptionPane.showInputDialog("What is the path to the ShareMe folder on the maanas server?");
+        }
     }
     
     @Override
@@ -48,6 +82,7 @@ public class ShareMeUserLinux implements ShareMeUserInterface
                 if(input.hasNext())
                 {
                     userId = input.nextLine();
+                    serverPath = input.nextLine();
                 }
                 
                 input.close();
@@ -60,6 +95,7 @@ public class ShareMeUserLinux implements ShareMeUserInterface
         else
         {
             userId = "";
+            serverPath = "";
             
             try 
             {
@@ -136,7 +172,8 @@ public class ShareMeUserLinux implements ShareMeUserInterface
     @Override
     public void SendUserIdToServer() 
     {
-        File target = new File("//maanas/maanas/IMC/ACS/ShareMe/UserId.txt");
+        File target = new File(serverPath+"/UserId.txt");
+
         try 
         {
             Files.copy(this.shareMeSettings.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
