@@ -136,7 +136,7 @@ public class ShareMeUserLinux implements ShareMeUserInterface
     @Override
     public void SendUserIdToServer() 
     {
-        File target = new File("smb://maanas.missouriwestern.edu/maanas/IMC/ACS/ShareMe/UserId.txt");
+        File target = new File("//maanas/maanas/IMC/ACS/ShareMe/UserId.txt");
         try 
         {
             Files.copy(this.shareMeSettings.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
