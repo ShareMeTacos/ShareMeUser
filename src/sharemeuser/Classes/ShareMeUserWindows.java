@@ -78,7 +78,6 @@ public class ShareMeUserWindows implements ShareMeUserInterface
     @Override
     public void SetUserId() 
     { 
-        userId = "421191595";
         if(!"".equals(userId))
         {
             Object[] options = 
