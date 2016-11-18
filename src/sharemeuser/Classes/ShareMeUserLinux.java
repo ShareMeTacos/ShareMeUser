@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
@@ -13,14 +15,16 @@ import sharemeuser.Interfaces.ShareMeUserInterface;
 
 public class ShareMeUserLinux implements ShareMeUserInterface
 {
-    private final String UserIdFilePath = "/shareMesettings.txt";
+    private final String settingsFileName = "/Documents/shareMesettings.txt";
     private boolean isCorrect;
     private String userId;
     private File shareMeSettings;
     
     public ShareMeUserLinux()
     {
-        this.SetSettingsFileWithPath(UserIdFilePath);
+        String user = (System.getProperty("user.name"));
+        String path = "/home/"+user+settingsFileName;
+        this.SetSettingsFileWithPath(path);
         this.SetUserIdFromSettings();
     }
     
@@ -132,7 +136,7 @@ public class ShareMeUserLinux implements ShareMeUserInterface
     @Override
     public void SendUserIdToServer() 
     {
-        File target = new File("/Volumes/maanas/IMC/ACS/ShareMe/UserId.txt");
+        File target = new File("smb://maanas.missouriwestern.edu/maanas/IMC/ACS/ShareMe/UserId.txt");
         try 
         {
             Files.copy(this.shareMeSettings.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
