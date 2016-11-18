@@ -78,35 +78,35 @@ public class ShareMeUserMac implements ShareMeUserInterface
     public void SetUserId() 
     {
         if(!"".equals(userId))
+        {
+            Object[] options = 
             {
-                Object[] options = 
-                {
-                    "Yes",
-                    "No",
-                };
-                
-                int n = JOptionPane.showOptionDialog(null,
-                    "Is "+userId+" the correct id?",
-                    "Correct user id?",
-                    JOptionPane.YES_NO_CANCEL_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    options,
-                    options[0]);
-                            
-                if(n == 0)
-                {
-                    isCorrect = true;
-                }
-                else
-                {
-                    userId = JOptionPane.showInputDialog("What is your user id?");
-                }
+                "Yes",
+                "No",
+            };
+
+            int n = JOptionPane.showOptionDialog(null,
+                "Is "+userId+" the correct id?",
+                "Correct user id?",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+            if(n == 0)
+            {
+                isCorrect = true;
             }
             else
             {
                 userId = JOptionPane.showInputDialog("What is your user id?");
             }
+        }
+        else
+        {
+            userId = JOptionPane.showInputDialog("What is your user id?");
+        }
     }
 
     @Override

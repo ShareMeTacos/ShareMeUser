@@ -18,7 +18,7 @@ public class ShareMeUser
        
        smua.SaveSettingsFile();
        
-       smua.SendUserIdToServer();
+       //smua.SendUserIdToServer();
     }
     
 }
